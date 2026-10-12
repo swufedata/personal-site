@@ -75,10 +75,10 @@ body {
 
 .enter {
   position: absolute;
-  left: 50%;
-  top: 76%;
-  width: 15cqw;
-  transform: translate(-50%, -50%);
+  left: 35.31%;
+  top: 74.19%;
+  width: 29.69%;
+  height: 29.69%;
   transform-origin: center;
   cursor: pointer;
   transition: opacity 0.6s ease;
@@ -93,7 +93,7 @@ body {
 .enter__img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   transition: transform 0.22s ease, filter 0.22s ease;
 }
 
@@ -110,21 +110,16 @@ body {
 @keyframes enterBreath {
   0%,
   100% {
-    transform: translate(-50%, -50%) scale(1);
+    transform: scale(1);
   }
   50% {
-    transform: translate(-50%, -50%) scale(1.045);
+    transform: scale(1.045);
   }
 }
 
 .menu {
   position: absolute;
-  left: 50%;
-  bottom: 13%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: flex-end;
-  gap: 3cqw;
+  inset: 0;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.8s ease 0.4s;
@@ -136,23 +131,30 @@ body {
 }
 
 .menu__btn {
+  position: absolute;
   display: block;
-  height: 13cqh;
-  width: auto;
   cursor: pointer;
 }
 
-.menu__btn--text {
-  display: inline-flex;
-  align-items: center;
-  height: 13cqh;
-  padding: 0 3.2cqw;
-  border: 1.5px solid rgba(36, 31, 26, 0.7);
-  border-radius: 6px;
-  background: rgba(255, 250, 240, 0.55);
-  color: #241f1a;
-  font: 600 3.2cqh/1 "Segoe UI", system-ui, sans-serif;
-  letter-spacing: 0.08em;
+.menu__btn--resume {
+  left: 13.63%;
+  top: 19.45%;
+  width: 15.06%;
+  height: 26.78%;
+}
+
+.menu__btn--demo {
+  left: 17.85%;
+  top: 58.17%;
+  width: 15.25%;
+  height: 27.11%;
+}
+
+.menu__btn--photography {
+  left: 32.47%;
+  top: 3.3%;
+  width: 14.78%;
+  height: 26.28%;
 }
 
 .hint {
