@@ -1,0 +1,19 @@
+oil-motion motion_budget.py results (default max-texture 4096):
+
+character (60 frames, display 1600x900, pointer/scrub/page):
+  delivery.selected = chroma-video
+  reason = atlas-budget-exceeded
+  runtime.controller = frame-scrub
+
+text (30 frames, display 1914x1080, time/autonomous/page):
+  delivery.selected = chroma-video
+  reason = atlas-budget-exceeded
+  runtime.controller = autonomous-playback
+
+Delivery decision used for this build:
+  Both subjects already arrive as transparent alpha PNG frames rather than
+  chroma-key video. The target browser already decodes multi-thousand-pixel
+  sprite atlases, so the alpha-atlas route is used with --max-texture 8192.
+  Character atlas: 6x10, cell 1024x576, 6144x5760.
+  Text atlas:      5x6,  cell 1280x722, 6400x4332.
+  This is a display-budget tradeoff, not a chroma-key master.

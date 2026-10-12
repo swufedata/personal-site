@@ -1,0 +1,64 @@
+{
+  "display": {
+    "width": 1600,
+    "height": 900,
+    "dpr": 1.0
+  },
+  "requiredCell": {
+    "width": 1600,
+    "height": 900
+  },
+  "frames": 60,
+  "texture": {
+    "maxSize": 4096,
+    "columnsPerSheet": 2,
+    "rowsPerSheet": 4,
+    "framesPerSheet": 8,
+    "sheetCount": 8
+  },
+  "decodedFrameMemoryMiB": 329.6,
+  "sourceCheck": {
+    "width": 1280,
+    "height": 720,
+    "required_width": 1600,
+    "required_height": 900,
+    "width_ratio": 0.8,
+    "height_ratio": 0.8,
+    "passes": false
+  },
+  "cellCheck": {
+    "width": 1024,
+    "height": 576,
+    "required_width": 1600,
+    "required_height": 900,
+    "width_ratio": 0.64,
+    "height_ratio": 0.64,
+    "passes": false
+  },
+  "temporalCheck": null,
+  "driver": "pointer",
+  "parameterSpace": "circular",
+  "timeControl": "scrub",
+  "access": "random",
+  "backgroundOwner": "page",
+  "delivery": {
+    "selected": "chroma-video",
+    "reasonCodes": [
+      "atlas-budget-exceeded"
+    ],
+    "atlasWithinBudget": false,
+    "thresholds": {
+      "atlasMaxSheets": 1,
+      "atlasMaxDecodedMemoryMiB": 192.0,
+      "linearVideoMinFrames": 180
+    }
+  },
+  "runtime": {
+    "renderer": "webgl-chroma-video",
+    "controller": "frame-scrub"
+  },
+  "failures": [
+    "源素材低于最终显示所需像素"
+  ],
+  "passes": false
+}
