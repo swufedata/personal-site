@@ -1,0 +1,65 @@
+:root {
+  --page-pad: clamp(8px, 2vmin, 24px);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  padding: var(--page-pad);
+  overflow: hidden;
+  background: #1f1c18;
+}
+
+.stage {
+  position: relative;
+  width: min(100%, calc((100dvh - 2 * var(--page-pad)) * 16 / 9));
+  max-height: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
+}
+
+@supports not (height: 100dvh) {
+  .stage {
+    width: min(100%, calc((100vh - 2 * var(--page-pad)) * 16 / 9));
+  }
+}
+
+.layer {
+  position: absolute;
+  display: block;
+}
+
+/* 背景：左 -2.02%、上 -2.84%、宽 100%、高 98.45% */
+.layer--bg {
+  left: -2.02%;
+  top: -2.84%;
+  width: 100%;
+  height: 98.45%;
+}
+
+/* 人物：左 3.68%、上 4.47%、宽 92.28%、高 92.28% */
+.layer--char {
+  left: 3.68%;
+  top: 4.47%;
+  width: 92.28%;
+  height: 92.28%;
+}
+
+/* 文字：左 0.31%、上 -20.17%、宽 99.69%、高 100% */
+.layer--text {
+  left: 0.31%;
+  top: -20.17%;
+  width: 99.69%;
+  height: 100%;
+}

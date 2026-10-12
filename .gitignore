@@ -1,0 +1,42 @@
+# 大体积中间产物与缓存
+.work/
+__pycache__/
+*.pyc
+*.mp4
+
+# 原始解码帧与关键帧抽样
+kling-all-frames/
+keyframes/
+keyframes-36/
+kling-keyframes-36/
+kling-keyframes-48/
+kling-keyframes-60-angle/
+head-turn-keyframes/
+text-keyframes-30/
+text-keyframes-90/
+
+# 抠图与动画源素材（大量 PNG / 视频）
+60帧/
+人物抠图/
+人物抠图文件夹/
+文字动画素材图/
+文字抠图素材/
+按钮素材/
+文字动画视频/
+
+# 各测试页里复制的逐帧 PNG（只保留代码与最终图集）
+*/assets/frames/
+*/assets/char/
+*/assets/text/
+combined-使用了skill版/frames/
+
+# 项目根目录的临时脚本与素材
+cutout_*.py
+check_sizes.py
+sizes.txt
+cutout_log*.txt
+01.png
+背景.png
+人物.png
+人物2.png
+文字.png

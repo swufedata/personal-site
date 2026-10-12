@@ -1,0 +1,22 @@
+subject_count: 2
+subjects:
+  - identity: character
+    style: hand-drawn charcoal and paper illustration
+    motion: complete clockwise head turn
+  - identity: text-animation
+    style: hand-drawn text with a tiny seamless wobble
+style: hand-drawn charcoal and paper
+motion_intent: character turns with the pointer; text loops on its own
+background_owner: page
+scene: static paper-wall room image provided by the user
+driver: pointer
+input_semantics: continuous
+time_control: scrub
+navigation: none
+clip_continuity: independent
+continuity:
+  - character silhouette and anchor
+  - text loop seam
+  - paper background
+aspect_ratio: 16:9
+destination: centered 16:9 hero, desktop and mobile

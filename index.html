@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>My Space</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="application/json" id="hero-manifest">
+{
+  "source": {
+    "width": 1280,
+    "height": 720,
+    "fps": 24.0,
+    "frames": 193,
+    "span": 8.0
+  },
+  "sheets": {
+    "desktop": {
+      "file": "hero-sheet-desktop.webp",
+      "cols": 6,
+      "rows": 5,
+      "frameWidth": 1280,
+      "frameHeight": 720,
+      "frames": 26,
+      "t0": 1.041667,
+      "t1": 4.541667,
+      "bytes": 2178264
+    },
+    "mobile": {
+      "file": "hero-sheet-mobile.webp",
+      "cols": 6,
+      "rows": 5,
+      "frameWidth": 960,
+      "frameHeight": 540,
+      "frames": 26,
+      "t0": 1.041667,
+      "t1": 4.541667,
+      "bytes": 1597162
+    },
+    "loop": {
+      "file": "hero-loop.webp",
+      "cols": 6,
+      "rows": 6,
+      "frameWidth": 800,
+      "frameHeight": 450,
+      "frames": 34,
+      "t0": 0.0,
+      "t1": 8.0,
+      "bytes": 1588852
+    }
+  },
+  "sweep": {
+    "from": 0,
+    "to": 25
+  },
+  "loop": {
+    "from": 0,
+    "to": 33
+  },
+  "plate": "plate.png",
+  "watermarkRegions": [
+    {
+      "x": 31,
+      "y": 28,
+      "w": 208,
+      "h": 66
+    },
+    {
+      "x": 1049,
+      "y": 625,
+      "w": 223,
+      "h": 81
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <div class="page">
+    <main class="stage" id="stage">
+      <div class="scene" id="scene">
+        <div class="scene__breathe">
+          <canvas class="scene__canvas" id="scene-canvas" aria-hidden="true"></canvas>
+        </div>
+      </div>
+
+      <div class="accents" id="accents" aria-hidden="true">
+        <i class="spark spark--a"></i>
+        <i class="spark spark--b"></i>
+        <i class="spark spark--c"></i>
+        <i class="spark spark--d"></i>
+        <i class="spark spark--e"></i>
+        <i class="planet"></i>
+        <i class="glow"></i>
+      </div>
+
+      <div class="hud" id="hud">
+        <div class="hud__row">
+          <span class="hud__label">Loading my space...</span>
+          <span class="hud__pct" id="hud-pct">0%</span>
+        </div>
+        <div class="hud__track">
+          <div class="hud__fill" id="hud-fill"></div>
+        </div>
+      </div>
+
+      <div class="ink" aria-hidden="true"></div>
+    </main>
+  </div>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
