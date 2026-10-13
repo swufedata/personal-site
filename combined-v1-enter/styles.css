@@ -184,6 +184,17 @@ body {
   top: 83.13%;
   width: 10.47%;
   height: 18.62%;
+  animation-name: menuBreathPhoto;
+}
+
+@keyframes menuBreathPhoto {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
 }
 
 .portfolio {
