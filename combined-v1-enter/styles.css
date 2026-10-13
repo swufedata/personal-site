@@ -134,17 +134,35 @@ body {
   position: absolute;
   display: block;
   cursor: pointer;
+  transform-origin: center;
+  animation: menuBreath 2.6s ease-in-out infinite;
+}
+
+.menu__btn-img {
+  display: block;
+  width: 100%;
+  height: 100%;
   transition: transform 0.22s ease, filter 0.22s ease;
 }
 
-.menu__btn:hover {
+.menu__btn:hover .menu__btn-img {
   transform: scale(1.08);
   filter: brightness(1.06) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.18));
 }
 
-.menu__btn:active {
+.menu__btn:active .menu__btn-img {
   transform: scale(0.96);
   filter: brightness(0.96);
+}
+
+@keyframes menuBreath {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
 }
 
 .menu__btn--resume {
