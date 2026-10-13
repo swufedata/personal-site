@@ -186,6 +186,47 @@ body {
   height: 18.62%;
 }
 
+.portfolio {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  z-index: 20;
+}
+
+.portfolio.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.transition {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  z-index: 21;
+}
+
+.transition.is-playing {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.transition__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000;
+}
+
 .hint {
   position: absolute;
   left: 50%;

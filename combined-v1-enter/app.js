@@ -22,6 +22,10 @@
   var hint = document.getElementById("hint");
   var enter = document.getElementById("enter");
   var menu = document.getElementById("menu");
+  var transition = document.getElementById("transition");
+  var transitionVideo = document.getElementById("transition-video");
+  var portfolio = document.getElementById("portfolio");
+  var photographyBtn = document.querySelector(".menu__btn--photography");
 
   var charRenderer = oilMotion.createCssSpriteRenderer(
     charEl,
@@ -69,6 +73,63 @@
     window.setTimeout(function () {
       menu.classList.add("is-visible");
     }, 800);
+  });
+
+  /* 摄影展转场
+     1) 鼠标移到 photography 时只做「预取」（下载进缓存，不运行），不消耗开场动画。
+     2) 点击后播放过渡视频，视频自带声音（点击属于用户操作，浏览器允许播放）。
+     3) 视频放完后末帧停在黑屏，此时才真正加载摄影展（它的开场 2.5 秒倒计时从这里才算起）。
+     4) 摄影展加载完成，把黑屏淡出，露出「黑 → Viper WANG 淡入」的开场。
+     因为两头都是纯黑，中间的加载时间完全看不出来。 */
+  var PORTFOLIO_SRC = "photo/index.html";
+  var prefetched = false;
+  var transitionStarted = false;
+  var portfolioRequested = false;
+
+  function prefetchPortfolio() {
+    if (prefetched) return;
+    prefetched = true;
+    var link = document.createElement("link");
+    link.rel = "prefetch";
+    link.href = PORTFOLIO_SRC;
+    document.head.appendChild(link);
+  }
+
+  function revealPortfolio() {
+    portfolio.classList.add("is-visible");
+    transition.classList.remove("is-playing");
+  }
+
+  function requestPortfolio() {
+    if (portfolioRequested) return;
+    portfolioRequested = true;
+    portfolio.setAttribute("src", PORTFOLIO_SRC);
+    window.setTimeout(revealPortfolio, 4000);
+  }
+
+  portfolio.addEventListener("load", function () {
+    if (portfolioRequested) revealPortfolio();
+  });
+
+  transitionVideo.addEventListener("ended", requestPortfolio);
+  transitionVideo.addEventListener("error", function () {
+    revealPortfolio();
+    requestPortfolio();
+  });
+
+  photographyBtn.addEventListener("pointerenter", prefetchPortfolio);
+  photographyBtn.addEventListener("click", function () {
+    if (transitionStarted) return;
+    transitionStarted = true;
+    prefetchPortfolio();
+    transition.classList.add("is-playing");
+    var playing = transitionVideo.play();
+    if (playing && typeof playing.catch === "function") {
+      playing.catch(function () {
+        revealPortfolio();
+        requestPortfolio();
+      });
+    }
   });
 
   function setFromPointer(clientX, clientY) {
