@@ -85,6 +85,7 @@
   var prefetched = false;
   var transitionStarted = false;
   var portfolioRequested = false;
+  var portfolioRevealed = false;
 
   function prefetchPortfolio() {
     if (prefetched) return;
@@ -96,8 +97,12 @@
   }
 
   function revealPortfolio() {
+    if (portfolioRevealed) return;
+    portfolioRevealed = true;
     portfolio.classList.add("is-visible");
-    transition.classList.remove("is-playing");
+    window.requestAnimationFrame(function () {
+      transition.classList.remove("is-playing");
+    });
   }
 
   function requestPortfolio() {
