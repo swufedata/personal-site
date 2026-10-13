@@ -161,7 +161,7 @@ body {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.035);
+    transform: scale(1.05);
   }
 }
 
