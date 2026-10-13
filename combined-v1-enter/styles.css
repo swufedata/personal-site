@@ -134,6 +134,17 @@ body {
   position: absolute;
   display: block;
   cursor: pointer;
+  transition: transform 0.22s ease, filter 0.22s ease;
+}
+
+.menu__btn:hover {
+  transform: scale(1.08);
+  filter: brightness(1.06) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.18));
+}
+
+.menu__btn:active {
+  transform: scale(0.96);
+  filter: brightness(0.96);
 }
 
 .menu__btn--resume {
