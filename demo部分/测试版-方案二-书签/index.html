@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo 测试版 · 方案二 纸质书签</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="stage" id="stage">
+    <section class="screen" id="screen">
+      <div class="browser">
+        <header class="browser__bar">
+          <span class="browser__dots" aria-hidden="true">
+            <i></i><i></i><i></i>
+          </span>
+          <span class="browser__url" id="browser-url">demo://一句话记账</span>
+        </header>
+
+        <div class="browser__body">
+          <nav class="tabs" id="tabs" role="tablist" aria-label="demo 列表"></nav>
+
+          <section class="view" id="view" role="tabpanel">
+            <div class="view__media" id="view-media"></div>
+            <div class="view__meta">
+              <h2 class="view__title" id="view-title"></h2>
+              <p class="view__desc" id="view-desc"></p>
+              <div class="view__actions">
+                <a class="btn btn--primary" id="view-link" href="#" target="_blank" rel="noopener">打开网页</a>
+                <span class="view__note" id="view-note"></span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+    <img class="frame" src="assets/frame.png" alt="">
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
