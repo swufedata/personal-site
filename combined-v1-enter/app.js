@@ -23,9 +23,9 @@
   var enter = document.getElementById("enter");
   var menu = document.getElementById("menu");
   var transition = document.getElementById("transition");
-  var transitionVideo = document.getElementById("transition-video");
-  var portfolio = document.getElementById("portfolio");
+  var target = document.getElementById("target");
   var photographyBtn = document.querySelector(".menu__btn--photography");
+  var demoBtn = document.querySelector(".menu__btn--demo");
 
   var charRenderer = oilMotion.createCssSpriteRenderer(
     charEl,
@@ -75,66 +75,101 @@
     }, 800);
   });
 
-  /* 摄影展转场
-     1) 鼠标移到 photography 时只做「预取」（下载进缓存，不运行），不消耗开场动画。
-     2) 点击后播放过渡视频，视频自带声音（点击属于用户操作，浏览器允许播放）。
-     3) 视频放完后末帧停在黑屏，此时才真正加载摄影展（它的开场 2.5 秒倒计时从这里才算起）。
-     4) 摄影展加载完成，把黑屏淡出，露出「黑 → Viper WANG 淡入」的开场。
-     因为两头都是纯黑，中间的加载时间完全看不出来。 */
-  var PORTFOLIO_SRC = "photo/index.html";
-  var prefetched = false;
+  /* 作品页转场：photography 与 demo 共用同一套「转场视频 + 内嵌网页」。
+     1) 鼠标移到按钮上时只做「预取」（下载进缓存，不运行），不提前消耗目标页自身的开场。
+     2) 点击后全屏播放该按钮对应的转场视频；视频自带声音时也会照常播放
+        （点击属于用户操作，浏览器允许出声）。
+     3) 视频播完，把最后一帧停在屏幕上不动；此时才真正加载目标网页
+        （它自己的开场动画从现在才开始算，所以能看到完整开场）。
+     4) 目标网页加载好后，先让它「瞬间」变不透明（把菜单页彻底盖住），
+        再让视频淡出。摄影展是「黑→黑」，demo 是「纸白→纸白」，
+        两头同色，中间的加载时间与切换都看不出来。 */
+  var TRANSITIONS = {
+    photography: { videoId: "video-photography", page: "photo/index.html" },
+    demo: { videoId: "video-demo", page: "demo/index.html" }
+  };
+  var prefetched = {};
   var transitionStarted = false;
-  var portfolioRequested = false;
-  var portfolioRevealed = false;
+  var targetSrc = "";
+  var targetRequested = false;
+  var targetRevealed = false;
 
-  function prefetchPortfolio() {
-    if (prefetched) return;
-    prefetched = true;
+  function prefetchPage(href) {
+    if (prefetched[href]) return;
+    prefetched[href] = true;
     var link = document.createElement("link");
     link.rel = "prefetch";
-    link.href = PORTFOLIO_SRC;
+    link.href = href;
     document.head.appendChild(link);
   }
 
-  function revealPortfolio() {
-    if (portfolioRevealed) return;
-    portfolioRevealed = true;
-    portfolio.classList.add("is-visible");
+  function revealTarget() {
+    if (targetRevealed) return;
+    targetRevealed = true;
+    target.classList.add("is-visible");
     window.requestAnimationFrame(function () {
       transition.classList.remove("is-playing");
     });
   }
 
-  function requestPortfolio() {
-    if (portfolioRequested) return;
-    portfolioRequested = true;
-    portfolio.setAttribute("src", PORTFOLIO_SRC);
-    window.setTimeout(revealPortfolio, 4000);
+  function requestTarget() {
+    if (targetRequested) return;
+    targetRequested = true;
+    target.setAttribute("src", targetSrc);
+    window.setTimeout(revealTarget, 4000);
   }
 
-  portfolio.addEventListener("load", function () {
-    if (portfolioRequested) revealPortfolio();
+  target.addEventListener("load", function () {
+    if (targetRequested) revealTarget();
   });
 
-  transitionVideo.addEventListener("ended", requestPortfolio);
-  transitionVideo.addEventListener("error", function () {
-    revealPortfolio();
-    requestPortfolio();
-  });
-
-  photographyBtn.addEventListener("pointerenter", prefetchPortfolio);
-  photographyBtn.addEventListener("click", function () {
+  function startTransition(key) {
     if (transitionStarted) return;
+    var spec = TRANSITIONS[key];
+    if (!spec) return;
     transitionStarted = true;
-    prefetchPortfolio();
+    targetSrc = spec.page;
+    prefetchPage(spec.page);
+
+    var videos = transition.querySelectorAll(".transition__video");
+    var active = null;
+    Array.prototype.forEach.call(videos, function (video) {
+      var on = video.id === spec.videoId;
+      video.classList.toggle("is-active", on);
+      if (on) active = video;
+    });
+    if (!active) return;
+
+    active.addEventListener("ended", requestTarget, { once: true });
+    active.addEventListener(
+      "error",
+      function () {
+        revealTarget();
+        requestTarget();
+      },
+      { once: true }
+    );
+
     transition.classList.add("is-playing");
-    var playing = transitionVideo.play();
+    var playing = active.play();
     if (playing && typeof playing.catch === "function") {
       playing.catch(function () {
-        revealPortfolio();
-        requestPortfolio();
+        revealTarget();
+        requestTarget();
       });
     }
+  }
+
+  [[photographyBtn, "photography"], [demoBtn, "demo"]].forEach(function (pair) {
+    var btn = pair[0];
+    var key = pair[1];
+    if (!btn) return;
+    btn.addEventListener("pointerenter", function () {
+      prefetchPage(TRANSITIONS[key].page);
+    });
+    btn.addEventListener("click", function () {
+      startTransition(key);
+    });
   });
 
   function setFromPointer(clientX, clientY) {

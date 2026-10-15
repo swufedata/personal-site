@@ -25,12 +25,19 @@
         <img class="menu__btn-img" src="assets/buttons/photography.png" alt="photography">
       </div>
     </div>
-    <iframe class="portfolio" id="portfolio" title="摄影作品展" src="about:blank"></iframe>
+    <iframe class="target" id="target" title="作品页面" src="about:blank"></iframe>
     <div class="transition" id="transition" aria-hidden="true">
       <video
-        class="transition__video"
-        id="transition-video"
+        class="transition__video is-active"
+        id="video-photography"
         src="assets/transition.mp4"
+        preload="auto"
+        playsinline
+      ></video>
+      <video
+        class="transition__video"
+        id="video-demo"
+        src="assets/demo-transition.mp4"
         preload="auto"
         playsinline
       ></video>
