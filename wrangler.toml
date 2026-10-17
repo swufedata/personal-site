@@ -1,0 +1,5 @@
+name = "personal-site"
+compatibility_date = "2025-09-01"
+
+[assets]
+directory = "./combined-v1-enter"
