@@ -20,5 +20,30 @@ Error generating stack: `+e.message+`
   </head>
   <body>
     <div id="root"></div>
+    <style>
+      .back-float {
+        position: fixed;
+        z-index: 9999;
+        top: 18px;
+        left: 18px;
+        width: 44px;
+        height: 44px;
+        display: grid;
+        place-items: center;
+        border: 1.5px solid rgba(20, 24, 22, 0.28);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.88);
+        color: #141816;
+        font-size: 22px;
+        line-height: 1;
+        text-decoration: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      }
+      .back-float:hover {
+        background: #141816;
+        color: #ffffff;
+      }
+    </style>
+    <a class="back-float" href="../index.html?menu=1" target="_top" title="返回菜单" aria-label="返回菜单">&#8592;</a>
   </body>
 </html>

@@ -8,9 +8,9 @@
     {
       id: "ledger",
       no: "01",
-      name: "一句话记账",
-      url: "demo://一句话记账",
-      title: "一句话记账",
+      name: "微信一句话记账",
+      url: "demo://微信一句话记账",
+      title: "微信一句话记账",
       desc:
         "在微信里发一句话就能记账（如「午饭 35」），手机浏览器随时看本月收支、分类占比和最近流水。",
       video: "assets/ledger-demo.mp4",
@@ -38,11 +38,11 @@
       url: "demo://更多 demo",
       title: "更多 demo",
       desc:
-        "另外还有一些 demo，因项目内部内容或尚未整理，暂时不方便在线展示。如果你感兴趣，我可以在交流时当面演示。",
+        "另外还有一些 demo，因涉及内部内容或尚未整理，暂不方便在线展示。",
       video: "",
       link: "",
       linkText: "打开网页",
-      note: "暂不在线展示 · 可当面演示",
+      note: "暂不在线展示",
       empty: "更多 demo 暂不在线展示"
     }
   ];
@@ -139,11 +139,12 @@
   buildTabs();
   selectDemo(activeId);
 
-  if (new URLSearchParams(window.location.search).has("from")) {
-    var back = document.createElement("a");
-    back.className = "back-link";
-    back.href = "../resume/index.html";
-    back.textContent = "← 返回简历";
-    document.body.appendChild(back);
-  }
+  var fromResume = new URLSearchParams(window.location.search).has("from");
+  var back = document.createElement("a");
+  back.className = "back-float";
+  back.href = fromResume ? "../resume/index.html" : "../index.html?menu=1";
+  back.target = "_top";
+  back.title = fromResume ? "返回简历" : "返回菜单";
+  back.textContent = "\u2190";
+  document.body.appendChild(back);
 })();
