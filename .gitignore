@@ -40,3 +40,7 @@ cutout_log*.txt
 人物.png
 人物2.png
 文字.png
+
+# 网站运行所需的视频（覆盖上面的 *.mp4）
+!combined-v1-enter/assets/*.mp4
+!combined-v1-enter/demo/assets/*.mp4
