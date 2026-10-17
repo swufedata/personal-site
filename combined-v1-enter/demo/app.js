@@ -26,10 +26,10 @@
       title: "个人网站",
       desc:
         "手绘背景 + 人物跟随鼠标转头 + 手绘文字动效，纯前端实现，可离线打开，电脑端体验更佳。",
-      video: "",
+      video: "assets/site-demo.mp4",
       link: "../../combined-v1-enter/index.html",
       linkText: "打开网站",
-      note: "演示视频待补"
+      note: ""
     },
     {
       id: "more",
