@@ -32,9 +32,26 @@ body {
 }
 
 .resume__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
   margin-bottom: 40px;
   padding-bottom: 24px;
   border-bottom: 1px solid var(--line);
+}
+
+.resume__id {
+  min-width: 0;
+}
+
+.resume__photo {
+  flex: 0 0 auto;
+  width: 116px;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  object-fit: cover;
 }
 
 .resume__header h1 {
