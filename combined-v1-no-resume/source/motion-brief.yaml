@@ -1,0 +1,24 @@
+concept_contract: source/concept-contract.yaml
+subjects:
+  character:
+    parameter_space: circular
+    media_access: random
+    driver: pointer
+    time_control: scrub
+    runtime_controller: frame-scrub
+    frame_count: 60
+    loop: closed
+    rest_state: frame 1
+    start_angle_radians: 3.141592653589793
+  text:
+    parameter_space: circular
+    media_access: sequential
+    driver: time
+    time_control: autonomous
+    runtime_controller: autonomous-playback
+    frame_count: 30
+    loop: closed
+    rest_state: frame 1
+frame_policy: native
+delivery: alpha-atlas
+reduced_motion: static frame 1

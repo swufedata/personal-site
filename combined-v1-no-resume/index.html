@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>组合动态版 · 使用 oil-motion skill</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="stage" id="stage">
+    <img class="layer layer--bg" src="assets/background.png" alt="">
+    <div class="layer layer--char" id="char" aria-hidden="true"></div>
+    <div class="layer layer--text" id="text" aria-hidden="true"></div>
+    <div class="enter" id="enter">
+      <img class="enter__img" src="assets/buttons/enter.png" alt="进入">
+    </div>
+    <div class="menu" id="menu">
+      <div class="menu__btn menu__btn--demo">
+        <img class="menu__btn-img" src="assets/buttons/demo.png" alt="demo">
+      </div>
+      <div class="menu__btn menu__btn--photography">
+        <img class="menu__btn-img" src="assets/buttons/photography.png" alt="photography">
+      </div>
+    </div>
+    <iframe class="target" id="target" title="作品页面" src="about:blank"></iframe>
+    <div class="transition" id="transition" aria-hidden="true">
+      <video
+        class="transition__video is-active"
+        id="video-photography"
+        src="assets/transition.mp4"
+        preload="auto"
+        playsinline
+      ></video>
+      <video
+        class="transition__video"
+        id="video-demo"
+        src="assets/demo-transition.mp4"
+        preload="auto"
+        playsinline
+      ></video>
+    </div>
+    <div class="hint" id="hint">加载中…</div>
+  </main>
+  <script src="assets/interactive-motion.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
