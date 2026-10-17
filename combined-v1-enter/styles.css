@@ -299,6 +299,7 @@ body {
   object-fit: cover;
   background: #000;
   visibility: hidden;
+  will-change: opacity;
 }
 
 .transition__video.is-active {
@@ -379,29 +380,30 @@ body {
 
 .desktop-hint {
   position: relative;
-  transform: rotate(-1.5deg);
+  transform: rotate(-2deg);
   display: none;
-  padding: 6px 13px;
-  border: 1.5px solid #2b2921;
+  padding: 8px 18px;
+  border: 2px solid #2b2921;
   border-radius: 2px;
-  background: #f7f1e7;
+  background: #fff8ea;
   color: #2b2921;
-  font-size: 12px;
-  letter-spacing: 0.03em;
+  font-size: clamp(15px, 4.2vw, 19px);
+  font-weight: 700;
+  letter-spacing: 0.04em;
   white-space: nowrap;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.24);
   pointer-events: none;
 }
 
 .desktop-hint::before {
   content: "";
   position: absolute;
-  top: -7px;
+  top: -8px;
   left: 50%;
-  width: 30px;
-  height: 11px;
+  width: 38px;
+  height: 13px;
   transform: translateX(-50%) rotate(-4deg);
-  background: rgba(226, 106, 44, 0.65);
+  background: rgba(226, 106, 44, 0.72);
 }
 
 .desktop-hint.is-visible {

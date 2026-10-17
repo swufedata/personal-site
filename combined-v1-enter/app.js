@@ -114,7 +114,8 @@
       videoId: "video-demo",
       page: "demo/index.html",
       backdrop: "#f7f1e7",
-      fade: 500,
+      fade: 700,
+      videoFade: true,
       fullscreenOnMobile: true
     },
     resume: {
@@ -122,6 +123,7 @@
       page: "resume/index.html",
       backdrop: "#f2f4ef",
       fade: 900,
+      videoFade: true,
       fullscreenOnMobile: true
     }
   };
@@ -131,6 +133,8 @@
   var targetRequested = false;
   var targetRevealed = false;
   var fullscreenOnMobile = false;
+  var currentSpec = null;
+  var currentVideo = null;
 
   function prefetchPage(href) {
     if (prefetched[href]) return;
@@ -153,27 +157,77 @@
     );
   }
 
+  function isPortraitTouch() {
+    return window.matchMedia("(orientation: portrait) and (pointer: coarse)").matches;
+  }
+
+  function fadeCurrentVideo(ms, done) {
+    if (!currentVideo || !ms) {
+      done();
+      return;
+    }
+    currentVideo.style.transition = "none";
+    var startedAt = 0;
+    function step(now) {
+      if (!startedAt) startedAt = now;
+      var progress = Math.min(1, (now - startedAt) / ms);
+      var eased = progress * progress * (3 - 2 * progress);
+      currentVideo.style.opacity = String(1 - eased);
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        done();
+      }
+    }
+    window.requestAnimationFrame(step);
+  }
+
   function revealTarget() {
     if (targetRevealed) return;
     targetRevealed = true;
     target.classList.add("is-visible");
+    if (currentSpec && currentSpec.videoFade) {
+      transition.style.background = "transparent";
+      fadeCurrentVideo(currentSpec.fade, function () {
+        transition.style.transitionDuration = "0ms";
+        transition.classList.remove("is-playing");
+      });
+      return;
+    }
     window.requestAnimationFrame(function () {
       transition.classList.remove("is-playing");
     });
   }
 
+  function loadTarget() {
+    target.setAttribute("src", targetSrc);
+    window.setTimeout(revealTarget, 4000);
+  }
+
   function requestTarget() {
     if (targetRequested) return;
     targetRequested = true;
-    if (
-      fullscreenOnMobile &&
-      window.matchMedia("(orientation: portrait) and (pointer: coarse)").matches
-    ) {
+    if (fullscreenOnMobile && isPortraitTouch()) {
       window.location.href = targetSrc;
       return;
     }
-    target.setAttribute("src", targetSrc);
-    window.setTimeout(revealTarget, 4000);
+    loadTarget();
+  }
+
+  function handleVideoEnd() {
+    if (targetRequested) return;
+    targetRequested = true;
+    if (fullscreenOnMobile && isPortraitTouch()) {
+      if (currentSpec && currentSpec.videoFade) {
+        fadeCurrentVideo(currentSpec.fade, function () {
+          window.location.href = targetSrc;
+        });
+      } else {
+        window.location.href = targetSrc;
+      }
+      return;
+    }
+    loadTarget();
   }
 
   target.addEventListener("load", function () {
@@ -187,6 +241,7 @@
     transitionStarted = true;
     targetSrc = spec.page;
     fullscreenOnMobile = !!spec.fullscreenOnMobile;
+    currentSpec = spec;
     prefetchPage(spec.page);
 
     var videos = transition.querySelectorAll(".transition__video");
@@ -197,8 +252,9 @@
       if (on) active = video;
     });
     if (!active) return;
+    currentVideo = active;
 
-    active.addEventListener("ended", requestTarget, { once: true });
+    active.addEventListener("ended", handleVideoEnd, { once: true });
     active.addEventListener("error", requestTarget, { once: true });
 
     transition.style.background = spec.backdrop;
