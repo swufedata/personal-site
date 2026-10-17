@@ -71,6 +71,10 @@
     enter.classList.add("is-faded");
     textEl.classList.add("is-faded");
     textStopped = true;
+    var desktopHintEl = document.getElementById("desktop-hint");
+    if (desktopHintEl) {
+      desktopHintEl.classList.remove("is-visible");
+    }
     window.setTimeout(function () {
       menu.classList.add("is-visible");
       showSwipeHint(6000);
@@ -267,6 +271,17 @@
   window.addEventListener("resize", updateRotateHint);
   if (portraitQuery.addEventListener) {
     portraitQuery.addEventListener("change", updateRotateHint);
+  }
+
+  var desktopHint = document.getElementById("desktop-hint");
+  function updateDesktopHint() {
+    var show = coarsePointerQuery.matches;
+    desktopHint.classList.toggle("is-visible", show);
+    desktopHint.setAttribute("aria-hidden", String(!show));
+  }
+  updateDesktopHint();
+  if (coarsePointerQuery.addEventListener) {
+    coarsePointerQuery.addEventListener("change", updateDesktopHint);
   }
 
   var swipeHint = document.getElementById("swipe-hint");

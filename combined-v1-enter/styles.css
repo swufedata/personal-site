@@ -323,12 +323,22 @@ body {
   pointer-events: none;
 }
 
-.rotate-hint {
+.top-hints {
   position: fixed;
   top: 10px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 9000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: max-content;
+  max-width: calc(100vw - 20px);
+  pointer-events: none;
+}
+
+.rotate-hint {
   display: none;
   align-items: center;
   gap: 8px;
@@ -364,6 +374,37 @@ body {
   50% {
     transform: rotate(90deg);
   }
+}
+
+.desktop-hint {
+  position: relative;
+  transform: rotate(-1.5deg);
+  display: none;
+  padding: 6px 13px;
+  border: 1.5px solid #2b2921;
+  border-radius: 2px;
+  background: #f7f1e7;
+  color: #2b2921;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+  pointer-events: none;
+}
+
+.desktop-hint::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  width: 30px;
+  height: 11px;
+  transform: translateX(-50%) rotate(-4deg);
+  background: rgba(226, 106, 44, 0.65);
+}
+
+.desktop-hint.is-visible {
+  display: block;
 }
 
 .swipe-hint {
