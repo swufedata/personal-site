@@ -579,3 +579,18 @@ h1 {
   background: #141816;
   color: #ffffff;
 }
+
+.chapter-image {
+  margin: 0 0 24px;
+  border: 1px solid var(--ink);
+  background: var(--white);
+  box-shadow: 7px 7px 0 var(--paper-deep);
+}
+
+.chapter-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+}
