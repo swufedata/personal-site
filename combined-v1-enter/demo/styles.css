@@ -339,3 +339,152 @@ body {
     display: flex;
   }
 }
+
+/* 手机竖屏：demo 整页全屏、纵向排布，页面可上下滚动，不再挤进 16:9 小框。
+   桌面与手机横屏不受这段影响。 */
+@media (orientation: portrait) and (max-width: 900px) {
+  html,
+  body {
+    height: auto;
+    min-height: 100%;
+    background: var(--paper);
+  }
+
+  body {
+    display: block;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .stage {
+    width: 100%;
+    max-height: none;
+    height: auto;
+    aspect-ratio: auto;
+    overflow: visible;
+    background: var(--paper);
+    container-type: normal;
+  }
+
+  .screen {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding: 0;
+    overflow: visible;
+    background: var(--paper);
+  }
+
+  .frame {
+    display: none;
+  }
+
+  .browser {
+    height: auto;
+    min-height: 100dvh;
+    border: 0;
+    font-size: clamp(13px, 3.6vw, 16px);
+  }
+
+  .browser__bar {
+    gap: 0;
+    padding: calc(env(safe-area-inset-top) + 8px) 12px 10px 62px;
+  }
+
+  .browser__dots {
+    display: none;
+  }
+
+  .browser__url {
+    padding: 0.4em 0.7em;
+    font-size: 0.82em;
+  }
+
+  .browser__body {
+    display: block;
+  }
+
+  .tabs {
+    flex-direction: row;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-right: 0;
+    border-bottom: 1.5px solid var(--ink);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab {
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 0.45em;
+    padding: 0.8em 0.9em;
+    border-right: 1.2px solid var(--ink-soft);
+    border-bottom: 3px solid transparent;
+    border-left: 0;
+    white-space: nowrap;
+    font-size: 0.95em;
+  }
+
+  .tab.is-active {
+    border-left-color: transparent;
+    border-bottom-color: var(--accent);
+    background: var(--paper);
+  }
+
+  .view {
+    container-type: normal;
+  }
+
+  .view__media {
+    width: 100%;
+    margin: 0;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+  }
+
+  .view__meta {
+    padding: 14px 16px calc(env(safe-area-inset-bottom) + 22px);
+  }
+
+  .view__title {
+    font-size: clamp(17px, 4.8vw, 20px);
+  }
+
+  .view__desc {
+    font-size: clamp(13px, 3.7vw, 15px);
+    line-height: 1.65;
+  }
+
+  .btn {
+    font-size: clamp(13px, 3.6vw, 15px);
+  }
+
+  .view__note {
+    display: block;
+    flex-basis: 100%;
+    font-size: clamp(11px, 3.2vw, 13px);
+    line-height: 1.55;
+  }
+
+  .back-float {
+    top: calc(env(safe-area-inset-top) + 8px);
+    left: 12px;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    background: rgba(255, 255, 255, 0.92);
+  }
+
+  .rotate-hint {
+    display: none;
+  }
+}

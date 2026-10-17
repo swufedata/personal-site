@@ -114,7 +114,8 @@
       videoId: "video-demo",
       page: "demo/index.html",
       backdrop: "#f7f1e7",
-      fade: 500
+      fade: 500,
+      fullscreenOnMobile: true
     },
     resume: {
       videoId: "video-resume",
