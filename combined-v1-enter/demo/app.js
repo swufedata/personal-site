@@ -13,10 +13,10 @@
       title: "一句话记账",
       desc:
         "在微信里发一句话就能记账（如「午饭 35」），手机浏览器随时看本月收支、分类占比和最近流水。",
-      video: "",
+      video: "assets/ledger-demo.mp4",
       link: "",
       linkText: "打开仪表盘网页",
-      note: "演示视频、网址待补"
+      note: "60 秒完整演示 · 仪表盘网址待补"
     },
     {
       id: "site",
@@ -32,16 +32,18 @@
       note: "演示视频待补"
     },
     {
-      id: "soon",
-      no: "03",
-      name: "第三个 demo",
-      url: "demo://待定",
-      title: "第三个 demo",
-      desc: "位置已预留。等你确定内容后，把视频和链接填进 app.js 里这一条即可。",
+      id: "more",
+      no: "03+",
+      name: "更多 demo",
+      url: "demo://更多 demo",
+      title: "更多 demo",
+      desc:
+        "另外还有一些 demo，因项目内部内容或尚未整理，暂时不方便在线展示。如果你感兴趣，我可以在交流时当面演示。",
       video: "",
       link: "",
       linkText: "打开网页",
-      note: "内容待定"
+      note: "暂不在线展示 · 可当面演示",
+      empty: "更多 demo 暂不在线展示"
     }
   ];
 
@@ -88,6 +90,7 @@
       video.muted = true;
       video.loop = true;
       video.playsInline = true;
+      video.controls = true;
       mediaEl.appendChild(video);
       return;
     }
@@ -98,7 +101,7 @@
     play.textContent = "\u25B6";
     var hint = document.createElement("span");
     hint.className = "media__hint";
-    hint.textContent = "演示视频占位";
+    hint.textContent = demo.empty || "演示视频占位";
     box.appendChild(play);
     box.appendChild(hint);
     mediaEl.appendChild(box);
@@ -135,4 +138,12 @@
 
   buildTabs();
   selectDemo(activeId);
+
+  if (new URLSearchParams(window.location.search).has("from")) {
+    var back = document.createElement("a");
+    back.className = "back-link";
+    back.href = "../resume/index.html";
+    back.textContent = "← 返回简历";
+    document.body.appendChild(back);
+  }
 })();
