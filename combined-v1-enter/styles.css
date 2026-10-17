@@ -197,6 +197,66 @@ body {
   }
 }
 
+.menu__btn-caption {
+  position: absolute;
+  top: calc(100% + 0.5cqw);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.25cqw;
+  line-height: 1.2;
+  color: #2b2921;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.menu__btn-caption::after {
+  content: "";
+  display: block;
+  width: 100%;
+  margin-top: 0.2cqw;
+  border-bottom: 1.5px dashed rgba(43, 41, 33, 0.55);
+}
+
+.menu__btn--photography .menu__btn-caption {
+  top: auto;
+  bottom: calc(100% + 0.45cqw);
+}
+
+.menu__btn--demo .menu__btn-caption {
+  top: auto;
+  bottom: calc(100% + 0.45cqw);
+}
+
+@keyframes menuBreathStrong {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+@keyframes menuBreathPhotoStrong {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.13);
+  }
+}
+
+@media (pointer: coarse) {
+  .menu__btn {
+    animation-name: menuBreathStrong;
+  }
+
+  .menu__btn--photography {
+    animation-name: menuBreathPhotoStrong;
+  }
+}
+
 .target {
   position: absolute;
   inset: 0;
