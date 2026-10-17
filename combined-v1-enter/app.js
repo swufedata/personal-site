@@ -74,6 +74,7 @@
     window.setTimeout(function () {
       menu.classList.add("is-visible");
       showSwipeHint(6000);
+      preloadTransitionVideos();
     }, 800);
   });
 
@@ -82,6 +83,7 @@
     textEl.classList.add("is-faded");
     textStopped = true;
     menu.classList.add("is-visible");
+    preloadTransitionVideos();
     if (window.history && window.history.replaceState) {
       window.history.replaceState(null, "", window.location.href.replace(/[?#].*$/, ""));
     }
@@ -132,6 +134,18 @@
     link.rel = "prefetch";
     link.href = href;
     document.head.appendChild(link);
+  }
+
+  function preloadTransitionVideos() {
+    Array.prototype.forEach.call(
+      transition.querySelectorAll(".transition__video"),
+      function (video) {
+        if (video.preload !== "auto") {
+          video.preload = "auto";
+          video.load();
+        }
+      }
+    );
   }
 
   function revealTarget() {
