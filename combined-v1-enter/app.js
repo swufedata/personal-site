@@ -98,7 +98,7 @@
   var TRANSITIONS = {
     photography: {
       videoId: "video-photography",
-      page: "photo/index.html",
+      page: "../../photo-exhibition/dist/index.html",
       backdrop: "#000000",
       fade: 500
     },
