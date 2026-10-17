@@ -81,6 +81,9 @@
     textEl.classList.add("is-faded");
     textStopped = true;
     menu.classList.add("is-visible");
+    if (window.history && window.history.replaceState) {
+      window.history.replaceState(null, "", window.location.href.replace(/[?#].*$/, ""));
+    }
   }
 
   /* 作品页转场：photography / demo / resume 共用同一套「转场视频 + 内嵌网页」。

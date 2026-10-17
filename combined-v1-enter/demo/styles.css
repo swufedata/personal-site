@@ -80,7 +80,7 @@ body {
   align-items: center;
   gap: 0.8em;
   flex: 0 0 auto;
-  padding: 0.9em 1.1em;
+  padding: 0.55em 0.9em;
   border-bottom: 1.5px solid var(--ink);
   background: var(--paper-2);
 }
@@ -92,8 +92,8 @@ body {
 
 .browser__dots i {
   display: block;
-  width: 0.62em;
-  height: 0.62em;
+  width: 0.52em;
+  height: 0.52em;
   border: 1.2px solid var(--ink);
   border-radius: 50%;
 }
@@ -104,9 +104,9 @@ body {
 
 .browser__url {
   flex: 1;
-  padding: 0.35em 0.7em;
+  padding: 0.25em 0.6em;
   border: 1.2px solid var(--ink-soft);
-  font-size: 0.78em;
+  font-size: 0.7em;
   letter-spacing: 0.02em;
   color: var(--ink-soft);
   white-space: nowrap;
@@ -165,13 +165,14 @@ body {
   flex-direction: column;
   flex: 1;
   min-width: 0;
+  container-type: size;
 }
 
 .view__media {
   position: relative;
   flex: 0 0 auto;
   align-self: center;
-  width: 62%;
+  width: min(60%, calc((100cqh - 96px) * 1.7778));
   aspect-ratio: 16 / 9;
   margin: 0.8em 0 0;
   border: 1.5px solid var(--ink);
