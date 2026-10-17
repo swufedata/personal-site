@@ -188,3 +188,35 @@ li {
   background: var(--blue);
   color: #ffffff;
 }
+
+@media (max-width: 600px) {
+  .resume {
+    padding: 24px 18px 72px;
+  }
+
+  .resume__header {
+    gap: 14px;
+  }
+
+  .resume__photo {
+    width: 88px;
+  }
+
+  .resume__header h1 {
+    font-size: 30px;
+  }
+
+  .sec h2 {
+    font-size: 17px;
+  }
+
+  .entry__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .entry__title {
+    font-size: 0.95em;
+  }
+}

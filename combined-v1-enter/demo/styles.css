@@ -295,3 +295,46 @@ body {
   background: #141816;
   color: #ffffff;
 }
+
+.rotate-hint {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9000;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: rgba(20, 24, 22, 0.72);
+  color: #f2f4ef;
+  font-size: 13px;
+  pointer-events: none;
+}
+
+.rotate-hint__icon {
+  font-size: 15px;
+  line-height: 1;
+  animation: rotateHintSpin 2.4s ease-in-out infinite;
+}
+
+.rotate-hint__text {
+  margin: 0;
+}
+
+@keyframes rotateHintSpin {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(90deg);
+  }
+}
+
+@media (orientation: portrait) and (hover: none) {
+  .rotate-hint {
+    display: flex;
+  }
+}

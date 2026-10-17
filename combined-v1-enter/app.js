@@ -73,6 +73,7 @@
     textStopped = true;
     window.setTimeout(function () {
       menu.classList.add("is-visible");
+      showSwipeHint(6000);
     }, 800);
   });
 
@@ -100,7 +101,8 @@
       videoId: "video-photography",
       page: "../../photo-exhibition/dist/index.html",
       backdrop: "#000000",
-      fade: 500
+      fade: 500,
+      fullscreenOnMobile: true
     },
     demo: {
       videoId: "video-demo",
@@ -112,7 +114,8 @@
       videoId: "video-resume",
       page: "resume/index.html",
       backdrop: "#f2f4ef",
-      fade: 900
+      fade: 900,
+      fullscreenOnMobile: true
     }
   };
   var prefetched = {};
@@ -120,6 +123,7 @@
   var targetSrc = "";
   var targetRequested = false;
   var targetRevealed = false;
+  var fullscreenOnMobile = false;
 
   function prefetchPage(href) {
     if (prefetched[href]) return;
@@ -142,6 +146,13 @@
   function requestTarget() {
     if (targetRequested) return;
     targetRequested = true;
+    if (
+      fullscreenOnMobile &&
+      window.matchMedia("(orientation: portrait) and (pointer: coarse)").matches
+    ) {
+      window.location.href = targetSrc;
+      return;
+    }
     target.setAttribute("src", targetSrc);
     window.setTimeout(revealTarget, 4000);
   }
@@ -156,6 +167,7 @@
     if (!spec) return;
     transitionStarted = true;
     targetSrc = spec.page;
+    fullscreenOnMobile = !!spec.fullscreenOnMobile;
     prefetchPage(spec.page);
 
     var videos = transition.querySelectorAll(".transition__video");
@@ -228,6 +240,57 @@
     },
     { passive: true }
   );
+
+  var rotateHint = document.getElementById("rotate-hint");
+  var coarsePointerQuery = window.matchMedia("(pointer: coarse)");
+  var portraitQuery = window.matchMedia("(orientation: portrait)");
+  function updateRotateHint() {
+    var show = coarsePointerQuery.matches && portraitQuery.matches;
+    rotateHint.classList.toggle("is-visible", show);
+    rotateHint.setAttribute("aria-hidden", String(!show));
+  }
+  updateRotateHint();
+  window.addEventListener("resize", updateRotateHint);
+  if (portraitQuery.addEventListener) {
+    portraitQuery.addEventListener("change", updateRotateHint);
+  }
+
+  var swipeHint = document.getElementById("swipe-hint");
+  var swipeHintDismissed = false;
+  try {
+    swipeHintDismissed = localStorage.getItem("swipe-hint-dismissed") === "1";
+  } catch (e) {}
+  var swipeHintTimer = null;
+  var coarsePointerOnly = window.matchMedia("(pointer: coarse)");
+
+  function hideSwipeHint() {
+    swipeHint.classList.add("is-faded");
+    window.setTimeout(function () {
+      swipeHint.classList.remove("is-visible", "is-faded");
+      swipeHint.setAttribute("aria-hidden", "true");
+    }, 500);
+  }
+
+  function showSwipeHint(ms) {
+    if (!coarsePointerOnly.matches || swipeHintDismissed) return;
+    window.clearTimeout(swipeHintTimer);
+    swipeHint.classList.add("is-visible");
+    swipeHint.classList.remove("is-faded");
+    swipeHint.setAttribute("aria-hidden", "false");
+    swipeHintTimer = window.setTimeout(hideSwipeHint, ms);
+  }
+
+  function dismissSwipeHint() {
+    if (!swipeHint.classList.contains("is-visible")) return;
+    swipeHintDismissed = true;
+    try {
+      localStorage.setItem("swipe-hint-dismissed", "1");
+    } catch (e) {}
+    hideSwipeHint();
+  }
+
+  window.addEventListener("pointerdown", dismissSwipeHint, { passive: true });
+  showSwipeHint(8000);
 
   function textTick(now) {
     window.requestAnimationFrame(textTick);
