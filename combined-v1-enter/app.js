@@ -76,13 +76,6 @@
     }, 800);
   });
 
-  if (new URLSearchParams(window.location.search).has("menu")) {
-    enter.classList.add("is-faded");
-    textEl.classList.add("is-faded");
-    textStopped = true;
-    menu.classList.add("is-visible");
-  }
-
   /* 作品页转场：photography / demo / resume 共用同一套「转场视频 + 内嵌网页」。
      1) 鼠标移到按钮上时只做「预取」（下载进缓存，不运行），不提前消耗目标页自身的开场。
      2) 点击后全屏播放该按钮对应的转场视频；视频自带声音时也会照常播放

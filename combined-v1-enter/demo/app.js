@@ -23,7 +23,7 @@
       no: "02",
       name: "个人网站",
       url: "demo://个人网站",
-      title: "这个个人网站",
+      title: "个人网站",
       desc:
         "手绘背景 + 人物跟随鼠标转头 + 手绘文字动效，纯前端实现，可离线打开。",
       video: "",
@@ -142,7 +142,7 @@
   var fromResume = new URLSearchParams(window.location.search).has("from");
   var back = document.createElement("a");
   back.className = "back-float";
-  back.href = fromResume ? "../resume/index.html" : "../index.html?menu=1";
+  back.href = fromResume ? "../resume/index.html" : "../index.html";
   back.target = "_top";
   back.title = fromResume ? "返回简历" : "返回菜单";
   back.textContent = "\u2190";
