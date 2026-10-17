@@ -173,6 +173,7 @@
     transition.style.background = spec.backdrop;
     transition.style.transitionDuration = spec.fade + "ms";
     transition.classList.add("is-playing");
+    active.preload = "auto";
     var playing = active.play();
     if (playing && typeof playing.catch === "function") {
       playing.catch(requestTarget);
@@ -189,18 +190,28 @@
     if (!btn) return;
     btn.addEventListener("pointerenter", function () {
       prefetchPage(TRANSITIONS[key].page);
+      var video = document.getElementById(TRANSITIONS[key].videoId);
+      if (video && video.preload !== "auto") {
+        video.preload = "auto";
+        video.load();
+      }
     });
     btn.addEventListener("click", function () {
       startTransition(key);
     });
   });
 
+  var charRect = null;
   function setFromPointer(clientX, clientY) {
-    var rect = charEl.getBoundingClientRect();
-    var dx = clientX - (rect.left + rect.width / 2);
-    var dy = clientY - (rect.top + rect.height / 2);
+    if (!charRect) charRect = charEl.getBoundingClientRect();
+    var dx = clientX - (charRect.left + charRect.width / 2);
+    var dy = clientY - (charRect.top + charRect.height / 2);
     charAnimator.setDirection(dx, dy, Math.PI);
   }
+
+  window.addEventListener("resize", function () {
+    charRect = charEl.getBoundingClientRect();
+  });
 
   window.addEventListener(
     "pointermove",
