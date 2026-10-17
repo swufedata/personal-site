@@ -285,24 +285,23 @@
   }
 
   var swipeHint = document.getElementById("swipe-hint");
-  var swipeHintDismissed = false;
-  try {
-    swipeHintDismissed = localStorage.getItem("swipe-hint-dismissed") === "1";
-  } catch (e) {}
   var swipeHintTimer = null;
+  var swipeHintHideTimer = null;
   var coarsePointerOnly = window.matchMedia("(pointer: coarse)");
 
   function hideSwipeHint() {
     swipeHint.classList.add("is-faded");
-    window.setTimeout(function () {
+    window.clearTimeout(swipeHintHideTimer);
+    swipeHintHideTimer = window.setTimeout(function () {
       swipeHint.classList.remove("is-visible", "is-faded");
       swipeHint.setAttribute("aria-hidden", "true");
     }, 500);
   }
 
   function showSwipeHint(ms) {
-    if (!coarsePointerOnly.matches || swipeHintDismissed) return;
+    if (!coarsePointerOnly.matches) return;
     window.clearTimeout(swipeHintTimer);
+    window.clearTimeout(swipeHintHideTimer);
     swipeHint.classList.add("is-visible");
     swipeHint.classList.remove("is-faded");
     swipeHint.setAttribute("aria-hidden", "false");
@@ -311,10 +310,7 @@
 
   function dismissSwipeHint() {
     if (!swipeHint.classList.contains("is-visible")) return;
-    swipeHintDismissed = true;
-    try {
-      localStorage.setItem("swipe-hint-dismissed", "1");
-    } catch (e) {}
+    window.clearTimeout(swipeHintTimer);
     hideSwipeHint();
   }
 
