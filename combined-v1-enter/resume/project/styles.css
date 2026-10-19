@@ -353,6 +353,10 @@ h1 {
   margin: 0 0 22px;
 }
 
+.chapter-image picture {
+  display: block;
+}
+
 .chapter-image img {
   display: block;
   width: 100%;
