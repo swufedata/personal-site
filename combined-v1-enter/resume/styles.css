@@ -307,8 +307,12 @@ li {
 }
 
 @media (max-width: 600px) {
+  .project-float-stack {
+    align-items: stretch;
+  }
+
   .project-float-card {
-    width: min(100%, 220px);
+    width: 100%;
     padding: 14px;
   }
 
