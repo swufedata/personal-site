@@ -291,7 +291,7 @@ li {
   font-weight: 700;
 }
 
-@media (max-width: 1359px) {
+@media (max-width: 1239px) {
   .project-float-stack {
     position: static;
     transform: none;
