@@ -348,6 +348,19 @@ h1 {
   border-top: 0;
 }
 
+.chapter-image {
+  display: none;
+  margin: 0 0 22px;
+}
+
+.chapter-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+
 .chapter-label {
   margin: 0 0 16px;
   color: var(--red);
@@ -458,10 +471,16 @@ h1 {
 
   .story-shell {
     grid-template-columns: 1fr;
-    grid-template-areas:
-      "stage"
-      "copy";
-    gap: 28px;
+    grid-template-areas: "copy";
+    gap: 0;
+  }
+
+  .stage-column {
+    display: none;
+  }
+
+  .chapter-image {
+    display: block;
   }
 
   .stage-sticky {
@@ -472,7 +491,7 @@ h1 {
 
   .chapter {
     min-height: auto;
-    padding: 64px 0;
+    padding: 40px 0;
   }
 
   .chapter h2 {

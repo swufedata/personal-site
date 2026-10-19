@@ -126,33 +126,3 @@ if ("IntersectionObserver" in window) {
 }
 
 setActiveChapter(0);
-
-(function enableMobileInlineImages() {
-  if (!window.matchMedia("(max-width: 980px)").matches) {
-    return;
-  }
-
-  chapters.forEach((chapter, index) => {
-    const image = stageImages[index];
-    if (!image) {
-      return;
-    }
-
-    const figure = document.createElement("figure");
-    figure.className = "chapter-image";
-
-    const img = document.createElement("img");
-    img.src = image.getAttribute("src");
-    img.alt = image.getAttribute("alt") || "";
-    img.loading = "lazy";
-    img.decoding = "async";
-    figure.appendChild(img);
-
-    chapter.prepend(figure);
-  });
-
-  const stageColumn = document.querySelector(".stage-column");
-  if (stageColumn) {
-    stageColumn.style.display = "none";
-  }
-})();
