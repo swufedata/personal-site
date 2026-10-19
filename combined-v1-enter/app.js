@@ -112,7 +112,7 @@
     },
     demo: {
       videoId: "video-demo",
-      page: "demo/index.html?v=2",
+      page: "demo/index.html?v=3",
       backdrop: "#f7f1e7",
       fade: 700,
       videoFade: true,

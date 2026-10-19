@@ -56,6 +56,8 @@
   var noteEl = document.getElementById("view-note");
 
   var activeId = DEMOS[0].id;
+  var renderToken = 0;
+  var currentObjectUrl = null;
 
   function buildTabs() {
     DEMOS.forEach(function (demo) {
@@ -101,10 +103,14 @@
   }
 
   function renderMedia(demo) {
+    var token = ++renderToken;
+    if (currentObjectUrl) {
+      URL.revokeObjectURL(currentObjectUrl);
+      currentObjectUrl = null;
+    }
     mediaEl.innerHTML = "";
     if (demo.video) {
       var video = document.createElement("video");
-      video.src = demo.video;
       video.autoplay = true;
       video.muted = true;
       video.loop = true;
@@ -224,6 +230,63 @@
 
       syncPlayButton();
       syncMuteButton();
+
+      var loading = document.createElement("div");
+      loading.className = "player-loading";
+      loading.textContent = "视频加载中…";
+      mediaEl.appendChild(loading);
+
+      function hideLoading() {
+        if (loading.parentNode) {
+          loading.parentNode.removeChild(loading);
+        }
+      }
+
+      function playVideo() {
+        var playing = video.play();
+        if (playing && typeof playing.catch === "function") {
+          playing.catch(function () {});
+        }
+      }
+
+      video.addEventListener("loadedmetadata", hideLoading, { once: true });
+      video.addEventListener("canplay", hideLoading, { once: true });
+      video.addEventListener("error", hideLoading, { once: true });
+
+      var isRemote =
+        location.protocol === "http:" || location.protocol === "https:";
+
+      if (!isRemote || !window.fetch) {
+        /* file:// 或旧浏览器：直接播放，本地文件本身支持跳转。 */
+        video.src = demo.video;
+        playVideo();
+      } else {
+        /* Cloudflare 静态资源不支持 Range 请求，先完整取回再用 Blob 播放，
+           这样进度条的点击/拖动才能真正跳转。 */
+        fetch(demo.video, { cache: "force-cache" })
+          .then(function (response) {
+            if (!response.ok) {
+              throw new Error("video fetch failed");
+            }
+            return response.blob();
+          })
+          .then(function (blob) {
+            if (token !== renderToken) {
+              return;
+            }
+            currentObjectUrl = URL.createObjectURL(blob);
+            video.src = currentObjectUrl;
+            playVideo();
+          })
+          .catch(function () {
+            if (token !== renderToken) {
+              return;
+            }
+            hideLoading();
+            video.src = demo.video;
+            playVideo();
+          });
+      }
       return;
     }
     var box = document.createElement("div");

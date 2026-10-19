@@ -490,6 +490,19 @@ body {
 }
 
 /* 自定义播放器控件：进度条支持点击与拖动，不依赖浏览器原生控件。 */
+.player-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  background: rgba(247, 241, 231, 0.88);
+  color: #6b6256;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  pointer-events: none;
+}
+
 .player-controls {
   position: absolute;
   left: 0;
