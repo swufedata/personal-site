@@ -190,6 +190,58 @@ li {
   color: #ffffff;
 }
 
+.project-inline-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: min(100%, 340px);
+  margin-top: 16px;
+  padding: 14px 16px 13px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--orange);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(20, 24, 22, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-inline-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(20, 24, 22, 0.12);
+}
+
+.project-inline-card__eyebrow {
+  color: var(--orange);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.project-inline-card__title {
+  font-size: 17px;
+  line-height: 1.35;
+}
+
+.project-inline-card__meta {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.project-inline-card__cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 7px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line);
+  color: var(--orange);
+  font-size: 12px;
+  font-weight: 700;
+}
+
 @media (max-width: 600px) {
   .resume {
     padding: 76px 18px 72px;
@@ -220,6 +272,28 @@ li {
   .entry__title {
     font-size: 0.95em;
   }
+
+  .project-inline-card {
+    width: 100%;
+    padding: 14px;
+  }
+
+  .project-inline-card__eyebrow {
+    font-size: 12px;
+  }
+
+  .project-inline-card__title {
+    font-size: 18px;
+  }
+
+  .project-inline-card__meta,
+  .project-inline-card__cta {
+    font-size: 13px;
+  }
+
+  .project-inline-card__cta {
+    padding-top: 10px;
+  }
 }
 
 /* 固定项目入口：桌面右侧小卡片，窄屏与手机改为底部按钮。 */
@@ -241,7 +315,7 @@ li {
   color: var(--ink);
   text-decoration: none;
   box-shadow: 0 10px 26px rgba(20, 24, 22, 0.14);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.25s ease;
 }
 
 .project-float--desktop:hover {
@@ -297,6 +371,7 @@ li {
   text-decoration: none;
   white-space: nowrap;
   box-shadow: 0 10px 26px rgba(20, 24, 22, 0.28);
+  transition: opacity 0.25s ease;
 }
 
 .project-float__dot {
@@ -314,6 +389,11 @@ li {
 
 .project-float--mobile:active {
   transform: translateX(-50%) scale(0.97);
+}
+
+.project-float.is-suppressed {
+  opacity: 0;
+  pointer-events: none;
 }
 
 @media (max-width: 1359px) {

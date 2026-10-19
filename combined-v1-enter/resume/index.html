@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>王栋 · 简历</title>
   <link rel="icon" type="image/png" href="../assets/favicon.png?v=3">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=2">
 </head>
 <body>
   <a class="back-float" href="../index.html?menu=1" target="_top" title="返回菜单" aria-label="返回菜单">&#8592;</a>
@@ -83,7 +83,12 @@
           <li><strong>收购</strong>：采用「线上+线下」多源采购：线上经闲鱼、酷安、转转筛选个人卖家货源控制采购成本；线下覆盖10+学生闲置社群，<strong>定制QQ群聊关键词提醒</strong>精准触达卖家、反向收机，月均采购6-8台。</li>
           <li><strong>销售与运营</strong>：布局校园私域流量，<strong>以价值交换策略驱动内容曝光与信任建设</strong>，通过<strong>场景化内容宣传</strong>（夜景对比、长焦样张）突出安卓影像机型优势、以高帧率游戏机型吸引游戏党，累计发布内容100+条，沉淀私域用户近200人；联动校园墙扩大曝光，<strong>累计成交约110台，总营收21万元、毛利率约16%</strong>，单台周转约30天，滞销机型降价全量出清；交叉推广校园卡业务（日常30余单、开学季50张），增收约16000元。</li>
         </ul>
-        <a class="jump jump--orange" href="project/index.html?v=3">查看项目介绍 →</a>
+        <a class="project-inline-card" href="project/index.html?v=3" aria-label="查看校园二手机项目介绍">
+          <span class="project-inline-card__eyebrow">目前可展示经历</span>
+          <strong class="project-inline-card__title">校园二手机</strong>
+          <span class="project-inline-card__meta">110 台 · 21 万 · 16%</span>
+          <span class="project-inline-card__cta">查看项目介绍 <span aria-hidden="true">→</span></span>
+        </a>
       </div>
 
       <div class="entry">
@@ -123,5 +128,24 @@
       </ul>
     </section>
   </main>
+  <script>
+    (function () {
+      var inlineCard = document.querySelector(".project-inline-card");
+      var floats = document.querySelectorAll(".project-float");
+      if (!inlineCard || !floats.length || !("IntersectionObserver" in window)) {
+        return;
+      }
+      var observer = new IntersectionObserver(
+        function (entries) {
+          var visible = entries[0].isIntersecting;
+          Array.prototype.forEach.call(floats, function (element) {
+            element.classList.toggle("is-suppressed", visible);
+          });
+        },
+        { rootMargin: "-15% 0px -15% 0px", threshold: 0.15 }
+      );
+      observer.observe(inlineCard);
+    })();
+  </script>
 </body>
 </html>

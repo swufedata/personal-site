@@ -120,7 +120,7 @@
     },
     resume: {
       videoId: "video-resume",
-      page: "resume/index.html",
+      page: "resume/index.html?v=2",
       backdrop: "#f2f4ef",
       fade: 900,
       videoFade: true,
