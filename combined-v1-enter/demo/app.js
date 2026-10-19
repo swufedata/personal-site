@@ -81,6 +81,25 @@
     });
   }
 
+  var ICON_PLAY =
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+  var ICON_PAUSE =
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>';
+  var ICON_VOLUME =
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+  var ICON_MUTED =
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 9l5 6M21 9l-5 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+  var ICON_FULLSCREEN =
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h6v2H7v4H5V5zm8 0h6v6h-2V7h-4V5zM5 13h2v4h4v2H5v-6zm12 0h2v6h-6v-2h4v-4z"/></svg>';
+
+  function formatTime(value) {
+    if (!isFinite(value) || value < 0) return "0:00";
+    var total = Math.floor(value);
+    var minutes = Math.floor(total / 60);
+    var seconds = total % 60;
+    return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+  }
+
   function renderMedia(demo) {
     mediaEl.innerHTML = "";
     if (demo.video) {
@@ -90,8 +109,121 @@
       video.muted = true;
       video.loop = true;
       video.playsInline = true;
-      video.controls = true;
+      video.controls = false;
       mediaEl.appendChild(video);
+
+      var controls = document.createElement("div");
+      controls.className = "player-controls";
+      controls.innerHTML =
+        '<button class="player-btn player-btn--play" type="button" aria-label="暂停">' +
+        ICON_PAUSE +
+        "</button>" +
+        '<span class="player-time player-time--current">0:00</span>' +
+        '<input class="player-seek" type="range" min="0" max="1000" value="0" step="1" aria-label="播放进度">' +
+        '<span class="player-time player-time--duration">0:00</span>' +
+        '<button class="player-btn player-btn--mute" type="button" aria-label="静音">' +
+        ICON_VOLUME +
+        "</button>" +
+        '<button class="player-btn player-btn--fullscreen" type="button" aria-label="全屏">' +
+        ICON_FULLSCREEN +
+        "</button>";
+      mediaEl.appendChild(controls);
+
+      var playBtn = controls.querySelector(".player-btn--play");
+      var muteBtn = controls.querySelector(".player-btn--mute");
+      var fullBtn = controls.querySelector(".player-btn--fullscreen");
+      var seek = controls.querySelector(".player-seek");
+      var currentEl = controls.querySelector(".player-time--current");
+      var durationEl = controls.querySelector(".player-time--duration");
+      var seeking = false;
+
+      function syncPlayButton() {
+        playBtn.innerHTML = video.paused ? ICON_PLAY : ICON_PAUSE;
+        playBtn.setAttribute("aria-label", video.paused ? "播放" : "暂停");
+      }
+
+      function syncMuteButton() {
+        muteBtn.innerHTML = video.muted ? ICON_MUTED : ICON_VOLUME;
+        muteBtn.setAttribute("aria-label", video.muted ? "取消静音" : "静音");
+      }
+
+      function syncSeek() {
+        if (!seeking && isFinite(video.duration) && video.duration > 0) {
+          seek.value = String((video.currentTime / video.duration) * 1000);
+        }
+        currentEl.textContent = formatTime(video.currentTime);
+      }
+
+      function togglePlay() {
+        if (video.paused) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      }
+
+      function toggleFullscreen() {
+        if (document.fullscreenElement) {
+          document.exitFullscreen();
+          return;
+        }
+        if (mediaEl.requestFullscreen) {
+          mediaEl.requestFullscreen();
+          return;
+        }
+        if (video.webkitEnterFullscreen) {
+          video.webkitEnterFullscreen();
+        }
+      }
+
+      function seekToPointer(event) {
+        var rect = seek.getBoundingClientRect();
+        if (!rect.width || !isFinite(video.duration)) return;
+        var ratio = Math.min(
+          1,
+          Math.max(0, (event.clientX - rect.left) / rect.width)
+        );
+        seek.value = String(ratio * 1000);
+        seeking = true;
+        video.currentTime = ratio * video.duration;
+        currentEl.textContent = formatTime(video.currentTime);
+      }
+
+      video.addEventListener("loadedmetadata", function () {
+        durationEl.textContent = formatTime(video.duration);
+        syncSeek();
+      });
+      video.addEventListener("timeupdate", syncSeek);
+      video.addEventListener("play", syncPlayButton);
+      video.addEventListener("pause", syncPlayButton);
+      video.addEventListener("click", togglePlay);
+      playBtn.addEventListener("click", togglePlay);
+      muteBtn.addEventListener("click", function () {
+        video.muted = !video.muted;
+        syncMuteButton();
+      });
+      fullBtn.addEventListener("click", toggleFullscreen);
+      seek.addEventListener("input", function () {
+        seeking = true;
+        if (isFinite(video.duration) && video.duration > 0) {
+          video.currentTime =
+            (Number(seek.value) / 1000) * video.duration;
+        }
+        currentEl.textContent = formatTime(video.currentTime);
+      });
+      seek.addEventListener("change", function () {
+        seeking = false;
+      });
+      seek.addEventListener("pointerup", function () {
+        seeking = false;
+      });
+      seek.addEventListener("pointercancel", function () {
+        seeking = false;
+      });
+      seek.addEventListener("pointerdown", seekToPointer);
+
+      syncPlayButton();
+      syncMuteButton();
       return;
     }
     var box = document.createElement("div");

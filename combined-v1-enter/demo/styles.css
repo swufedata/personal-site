@@ -488,3 +488,110 @@ body {
     display: none;
   }
 }
+
+/* 自定义播放器控件：进度条支持点击与拖动，不依赖浏览器原生控件。 */
+.player-controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 10px 8px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0));
+  color: #ffffff;
+}
+
+.player-btn {
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.24);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.player-btn:hover {
+  background: rgba(0, 0, 0, 0.42);
+}
+
+.player-btn:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.player-btn svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.player-time {
+  flex: 0 0 auto;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.player-seek {
+  flex: 1;
+  min-width: 0;
+  height: 24px;
+  margin: 0;
+  cursor: pointer;
+  accent-color: var(--accent);
+}
+
+.player-seek::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.46);
+}
+
+.player-seek::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -5px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.player-seek::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.46);
+}
+
+.player-seek::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+@media (max-width: 600px) {
+  .player-controls {
+    gap: 6px;
+    padding: 14px 8px 5px;
+  }
+
+  .player-btn {
+    width: 24px;
+    height: 24px;
+  }
+
+  .player-time {
+    font-size: 10px;
+  }
+}
