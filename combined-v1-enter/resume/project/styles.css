@@ -9,8 +9,15 @@
   --orange: #e26a2c;
   --blue: #2868be;
   --green: #247255;
+  --header-h: 10vh;
   --serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", serif;
   --sans: "Noto Sans SC", "Source Han Sans SC", "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+}
+
+@supports (height: 100dvh) {
+  :root {
+    --header-h: 10dvh;
+  }
 }
 
 * {
@@ -20,7 +27,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 84px;
+  scroll-padding-top: calc(var(--header-h) + 16px);
 }
 
 body {
@@ -63,7 +70,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 68px;
+  min-height: var(--header-h);
   padding: 0 4vw;
   border-bottom: 1px solid var(--line);
   background: rgba(242, 244, 239, 0.94);
@@ -72,16 +79,16 @@ a {
 
 .brand {
   font-family: var(--serif);
-  font-size: 1rem;
+  font-size: clamp(20px, 1.25vw, 24px);
   font-weight: 700;
   text-decoration: none;
 }
 
 .project-meta {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: clamp(14px, 0.9vw, 17px);
 }
 
 .project-meta span + span::before {
@@ -101,7 +108,7 @@ a {
   grid-template-columns: minmax(300px, 0.74fr) minmax(0, 1.26fr);
   align-items: center;
   gap: clamp(32px, 5vw, 84px);
-  min-height: calc(100vh - 68px);
+  min-height: calc(100vh - var(--header-h));
   padding-block: clamp(50px, 8vh, 100px);
 }
 
@@ -252,7 +259,7 @@ h1 {
 
 .stage-sticky {
   position: sticky;
-  top: 96px;
+  top: calc(var(--header-h) + 28px);
 }
 
 .stage-heading {
@@ -488,7 +495,7 @@ h1 {
   }
 
   .stage-sticky {
-    top: 76px;
+    top: calc(var(--header-h) + 16px);
     padding-bottom: 12px;
     background: var(--white);
   }
@@ -505,8 +512,17 @@ h1 {
 
 @media (max-width: 640px) {
   .site-header {
-    min-height: 60px;
-    padding-inline: 18px;
+    min-height: var(--header-h);
+    padding-inline: 74px 18px;
+  }
+
+  .brand {
+    font-size: 20px;
+  }
+
+  .project-meta {
+    gap: 8px;
+    font-size: 14px;
   }
 
   .project-meta span + span {
@@ -535,7 +551,7 @@ h1 {
   }
 
   .stage-sticky {
-    top: 68px;
+    top: calc(var(--header-h) + 16px);
   }
 
   .stage-heading {
@@ -566,6 +582,21 @@ h1 {
   .site-footer {
     flex-direction: column;
     padding-inline: 18px;
+  }
+}
+
+@media (max-width: 360px) {
+  .site-header {
+    padding: 0 12px 0 64px;
+  }
+
+  .brand {
+    font-size: 16px;
+  }
+
+  .project-meta {
+    gap: 6px;
+    font-size: 12px;
   }
 }
 
