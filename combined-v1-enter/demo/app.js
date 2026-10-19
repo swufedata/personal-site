@@ -337,7 +337,7 @@
   var fromResume = new URLSearchParams(window.location.search).has("from");
   var back = document.createElement("a");
   back.className = "back-float";
-  back.href = fromResume ? "../resume/index.html?v=7" : "../index.html?menu=1";
+  back.href = fromResume ? "../resume/index.html?v=8" : "../index.html?menu=1";
   back.target = "_top";
   back.title = fromResume ? "返回简历" : "返回菜单";
   back.textContent = "\u2190";

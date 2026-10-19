@@ -298,16 +298,6 @@ li {
     width: 100%;
     margin: 0 0 26px;
     gap: 12px;
-    align-items: flex-end;
-  }
-
-  .project-float-card {
-    width: min(100%, 210px);
-  }
-}
-
-@media (max-width: 600px) {
-  .project-float-stack {
     align-items: stretch;
   }
 
