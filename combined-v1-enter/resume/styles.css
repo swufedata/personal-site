@@ -239,8 +239,9 @@ li {
 .project-float-card {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 15px 16px 14px;
+  gap: 3px;
+  width: 100%;
+  padding: 13px 14px 12px;
   border: 1px solid var(--line);
   border-left: 4px solid var(--orange);
   border-radius: 8px;
@@ -277,90 +278,51 @@ li {
   line-height: 1.35;
 }
 
-.project-float-card__meta {
-  color: var(--muted);
-  font-size: 12px;
-}
-
 .project-float-card__cta {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  margin-top: 7px;
-  padding-top: 8px;
+  margin-top: 6px;
+  padding-top: 7px;
   border-top: 1px dashed var(--line);
   color: var(--orange);
   font-size: 12px;
   font-weight: 700;
 }
 
-.project-dock {
-  position: fixed;
-  z-index: 998;
-  left: 50%;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
-  transform: translateX(-50%);
-  display: none;
-  gap: 10px;
-}
-
-.project-dock__btn {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 10px 14px;
-  border-radius: 999px;
-  background: #141816;
-  color: #ffffff;
-  font-size: 13px;
-  font-weight: 700;
-  text-decoration: none;
-  white-space: nowrap;
-  box-shadow: 0 10px 26px rgba(20, 24, 22, 0.28);
-}
-
-.project-dock__btn:active {
-  transform: scale(0.97);
-}
-
-.project-dock__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--orange);
-  box-shadow: 0 0 0 3px rgba(226, 106, 44, 0.2);
-}
-
-.project-dock__btn--ledger .project-dock__dot {
-  background: var(--blue);
-  box-shadow: 0 0 0 3px rgba(40, 104, 190, 0.2);
-}
-
 @media (max-width: 1359px) {
   .project-float-stack {
-    display: none;
+    position: static;
+    transform: none;
+    width: 100%;
+    margin: 0 0 26px;
+    gap: 12px;
+    align-items: flex-end;
   }
 
-  .project-dock {
-    display: flex;
-  }
-
-  .resume {
-    padding-bottom: 136px;
+  .project-float-card {
+    width: min(100%, 210px);
   }
 }
 
 @media (max-width: 600px) {
-  .project-dock__btn {
-    padding: 9px 12px;
-    font-size: 12px;
+  .project-float-card {
+    width: min(100%, 220px);
+    padding: 14px;
+  }
+
+  .project-float-card__title {
+    font-size: 18px;
+  }
+
+  .project-float-card__cta {
+    font-size: 13px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .project-float-card,
-  .project-dock__btn {
+  .project-float-card {
     transition: none;
   }
 }
