@@ -223,8 +223,8 @@ li {
 
 }
 
-/* 固定项目入口：仅桌面显示右侧小卡片。 */
-.project-float--desktop {
+/* 固定项目入口：宽屏右侧两张卡片，手机/窄屏底部两个按钮。 */
+.project-float-stack {
   position: fixed;
   z-index: 998;
   top: 44%;
@@ -232,8 +232,14 @@ li {
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 14px;
   width: 196px;
+}
+
+.project-float-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   padding: 15px 16px 14px;
   border: 1px solid var(--line);
   border-left: 4px solid var(--orange);
@@ -245,29 +251,38 @@ li {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.project-float--desktop:hover {
-  transform: translateY(-50%) translateX(-3px);
+.project-float-card:hover {
+  transform: translateY(-2px);
   box-shadow: 0 14px 32px rgba(20, 24, 22, 0.18);
 }
 
-.project-float__eyebrow {
+.project-float-card--ledger {
+  border-left-color: var(--blue);
+}
+
+.project-float-card__eyebrow {
   color: var(--orange);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.12em;
 }
 
-.project-float__title {
+.project-float-card--ledger .project-float-card__eyebrow,
+.project-float-card--ledger .project-float-card__cta {
+  color: var(--blue);
+}
+
+.project-float-card__title {
   font-size: 17px;
   line-height: 1.35;
 }
 
-.project-float__meta {
+.project-float-card__meta {
   color: var(--muted);
   font-size: 12px;
 }
 
-.project-float__cta {
+.project-float-card__cta {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -280,14 +295,72 @@ li {
   font-weight: 700;
 }
 
+.project-dock {
+  position: fixed;
+  z-index: 998;
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+  transform: translateX(-50%);
+  display: none;
+  gap: 10px;
+}
+
+.project-dock__btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #141816;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 10px 26px rgba(20, 24, 22, 0.28);
+}
+
+.project-dock__btn:active {
+  transform: scale(0.97);
+}
+
+.project-dock__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 0 3px rgba(226, 106, 44, 0.2);
+}
+
+.project-dock__btn--ledger .project-dock__dot {
+  background: var(--blue);
+  box-shadow: 0 0 0 3px rgba(40, 104, 190, 0.2);
+}
+
 @media (max-width: 1359px) {
-  .project-float--desktop {
+  .project-float-stack {
     display: none;
+  }
+
+  .project-dock {
+    display: flex;
+  }
+
+  .resume {
+    padding-bottom: 136px;
+  }
+}
+
+@media (max-width: 600px) {
+  .project-dock__btn {
+    padding: 9px 12px;
+    font-size: 12px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .project-float--desktop {
+  .project-float-card,
+  .project-dock__btn {
     transition: none;
   }
 }
